@@ -1,0 +1,77 @@
+.message-box {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.message-text {
+    font-weight: bold;
+}
+
+.message-edit-box {
+    margin-top: 10px;
+}
+
+body.dark-mode {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.navbar {
+    background-color: #222;
+    color:#ccc;
+}
+
+.navbar-default {
+    border: none;
+}
+
+.navbar-brand {
+    color:#ccc!important;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: #f0f0f0;
+}
+
+textarea {
+    resize: none;
+}
+
+body.dark-mode .btn {
+    background-color: #555;
+    color: white;
+}
+
+
+.og-txt {
+    border: 1px solid white;
+}
+
+.tr-txt {
+    border: 1px solid white;
+}
+
+.col-md-6 {
+    width: 49%;
+    margin-right: 0.5%;
+    margin-left: 0.5%;
+}
+
+nav > .container-fluid {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+} 
+
+.kit-commands {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-self: flex-end;
+}
