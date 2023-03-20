@@ -1,0 +1,27 @@
+Do a text formatter like you just did that takes in these operators! The formatter should return a HTML string with these operators replaced by the correct HTML tags according to the operators' descriptions!
+Each operator is case-insensitive prefixed with \ (backslash), and whatever is inside [] or <> is a comment (usually of type NUMBER) and has also an effect on the text after it!
+
+V \c[number] - Change text color.
+V \i[number] - Displays an icon in-line with the text.
+V \{ - Increases font size
+V \} - Decreases font size
+V <br> - Creates a line break. This is a special operator because it isn't prefixed with a backslash
+NNT \oc[number] - Sets outline color (colors the same as in the earlier text color operator)
+NNT \ow[number] - Sets outline thickness (Needs outline color to be set beforehand)
+V \fr - Reset all font changes
+NNT \fs[number] - Change font size to the specified value
+\fn<x> - Set font name to specified value (Default value is 'OMORI_GAME2')
+V \fb - Toggle for bold text
+V \fi - Toggle for italic text
+V \SINV[number] - Makes the text shake vertically until \sinv[0] or the end of the message (Accepted values are 0, 1 and 2, 2 produces a more dense wave, and 0 no wave at all) and needs to be replaced with a span that encompasses the text that is affected and has a class 'sinv1' or 'sinv2' depending on the number.
+V \SINH[number] - Makes the text shake horizontally until \sinh[0] or the end of the message (Accepted value are 0 and 1, where 0 produces no wave and 1 produces a wave) and needs to be replaced with a span that encompasses the text that is affected and has a class 'sinh1'.
+V \QUAKE[number] - Makes the text wobble agressively until \quake[0] or the end of the message (Accepted values are 0, 1 and 2, 2 is more intense) and needs to be replaced with a span that encompasses the text that is affected and has a class 'quake1' or 'quake2' depending on the number.
+V \RAINBOW[number] - Adds an animated rainbow effect to the text until \rainbow[0] or the end of the message (Accepted value are 0 and 1) and needs to be replaced with a span that encompasses the text that is affected and has a class 'rainbow1'.
+
+These operators should just disappear in the output text (they are separated by commas):
+\v[number],\n[number],\p[number],\g,\.,\|,\!,\>,\<,\^,\$,\w[number],\Com[number],\px[number],\py[number],\n<text>,\omo,\aub,\kel,\her,\bas,\bas,\he,\him,\his,\mar,\min,\art,\spxh,\mai,\swh,\smm,\jaw,\Life,\kim,\cha,\ang,\mav,\van,\spg,\spd,\spb,\wis,\ber,\van,\nos,\bun,\lad,\dai,\neb,\hap,\eye,\ban,\shaw,\ren,\char,\wee,\hum,\gra,\che,\sna,\swe,\ems,\ash,\plu,\due,\cru,\ros,\kit,\sca,\tvg,\sha,\may,\sle,\spo,\che,\spr,\ban,\toa,\bun,\ma1,\ma2,\spe,\hot,\bud,\tom,\lea,\ora,\pro,\str,\top,\po,\lar,\fer,\gum,\gib,\cre,\duw,\duj,\duc,\pes,\smo,\gen,\lue,\pol,\sou,\tea,\st1,\st2,\st3,\dun,\lau,\squ,\dm1,\dm2,\dm3,\mm1,\mm2,\joc,\sp1,\sp2,\sp3,\ear,\sbf,\sxbf,\cap,\shb,\sxhb,\min,\kev
+
+
+An example for all this is :
+INPUT TEXT: I \fblove\fb you, \sinv[1]OMORI!\sinv[0]<br>I truly do!\aub
+OUTPUT TEXT: I <b>love</b> you, <span class="sinv1">OMORI!</span><br>I truly do!\n<\n[2]>
