@@ -1,0 +1,143 @@
+/* QUAKE ANIMATION */
+
+@keyframes quake_1 {
+  0% {
+    transform: translate(0px);
+  }
+
+  25% {
+    transform: translate(5px, -4px);
+  }
+
+  50% {
+    transform: translate(-5px, 6px);
+  }
+
+  75% {
+    transform: translate(-5px, -6px);
+  }
+
+  100% {
+    transform: translate(0px);
+  }
+}
+
+@keyframes quake_counter {
+  0% {
+    transform: translate(0px);
+  }
+
+  25% {
+    transform: translate(-5px, 4px);
+  }
+
+  50% {
+    transform: translate(5px, -6px);
+  }
+
+  75% {
+    transform: translate(5px, 6px);
+  }
+
+  100% {
+    transform: translate(0px);
+  }
+}
+
+.quake0 {
+  display: inline-block;
+  animation-name: quake_counter;
+  animation-duration: 250ms;
+  animation-iteration-count: infinite;
+}
+
+.quake1, .quake2 {
+  display: inline-block;
+  animation-name: quake_1;
+  animation-duration: 250ms;
+  animation-iteration-count: infinite;
+}
+
+/* SINV ANIMATION */
+
+@keyframes sinv1 {
+
+  0% {
+    transform: translate(0px, 5px);
+  }
+
+  100% {
+    transform: translate(0px, -5px);
+  }
+}
+
+@keyframes sinv_counter {
+
+  100% {
+    transform: translate(0px, 5px);
+  }
+
+  0% {
+    transform: translate(0px, -5px);
+  }
+}
+
+.sinv0 {
+  display: inline-block;
+  animation-name: sinv1;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+.sinv1, .sinv2 {
+  display: inline-block;
+  animation-name: sinv_counter;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+/* SINH ANIMATION */
+
+@keyframes sinh {
+
+  0% {
+    transform: translate(5px, 5px);
+  }
+
+  100% {
+    transform: translate(-5px, 0px);
+  }
+}
+
+@keyframes sinh_counter {
+
+  100% {
+    transform: translate(5px, 5px);
+  }
+
+  0% {
+    transform: translate(-5px, 0px);
+  }
+}
+
+.sinh0 {
+  display: inline-block;
+  animation-name: sinh_counter;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+.sinh1, .sinh2 {
+  display: inline-block;
+  animation-name: sinh;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
