@@ -41,9 +41,10 @@ app.post("/git-req-endpoint", function (req, res) {
     if (tr_string == "") {
       res.write("ERR_EMPTY_TR_STR")
     } else {
-      translate(tr_string, { to: 'ar' }).then(res => {
-        res.write("TRD_TXT:" + res.text);
+      translate(tr_string, { to: 'ar' }).then(trd_response => {
+        res.write("TRD_TXT:" + trd_response.text);
       })
     }
   }
+
 })

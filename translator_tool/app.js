@@ -18,13 +18,14 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http) {
 
     $scope.trWithGoogle = function (message) {
         var text = message.text;
+        
+        
         if (text) {
             $http.post("/git-req-endpoint", {data : `GGLE_TRL:${text}`}).then(res => {
+                console.log(res)
                 for (var trd_msg of $scope.translated) {
                     if (message.key_name == trd_msg.key_name) {
-                        $scope.$apply(function () {
-                            trd_msg.text = res;
-                        })
+                        trd_msg.text = res.data.data;
                     }
                 }
             })
@@ -34,7 +35,7 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http) {
     document.getElementById("load-file").addEventListener('change', function () {
         $scope.$apply(function () {
             $scope.selectedFilename = document.getElementById("load-file").value.split('\\').pop();
-            console.log($scope.selectedFilename)
+            //console.log($scope.selectedFilename)
         })
     });
 
