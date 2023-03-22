@@ -40,6 +40,7 @@
                                 <div class="message-box-face"
                                     ng-bind-html="trustAsHTML(getFaceImage(message.faceset, message.faceindex))"></div>
                             </div>
+                            <button style="height:fit-content;" class="btn" ng-click="trWithGoogle(message)">Translate with Google Translate API</button>
                             <div ng-show="getActorName(message.text)" class="name-box">{{getActorName(message.text)}}
                             </div>
                         </div>
