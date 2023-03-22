@@ -102,6 +102,13 @@ body.dark-mode .btn {
 }
 
 
+button.btn {
+    background-color: #555;
+    color: white;
+    font-family: 'OMORI_GAME2';
+    font-size: 1.7em;
+}
+
 .og-txt {
     background-color: #111;
     border-radius: 1em;

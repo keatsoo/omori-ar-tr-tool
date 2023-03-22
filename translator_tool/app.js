@@ -1,12 +1,26 @@
 // Initialize the app
 var app = angular.module('yaml_OMORI_translator', ['ngSanitize']);
 
+
 // Define the controller for the app
-app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce) {
+app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http) {
 
     // Initialize the original messages array
     $scope.messages = [];
     $scope.translated = [];
+    $scope.selectedFilename = "";
+    $scope.filename = "";
+
+    $scope.gitPush = function () {
+        $http.post("/git-req-endpoint", {data: 'PUSH_BTN'});
+    }
+
+    document.getElementById("load-file").addEventListener('change', function() {
+        $scope.$apply(function () {
+            $scope.selectedFilename = document.getElementById("load-file").value.split('\\').pop();
+            console.log($scope.selectedFilename)
+        })
+    });
 
     $scope.formatOMORIText = function (inputText) {
         // Define the operators
@@ -415,6 +429,11 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce) {
         return "";
     }
 
+    $scope.fileInput = function () {
+        var input = document.getElementById("load-file");
+        input.click();
+    }
+
     $scope.trustAsHTML = function (text) {
         return $sce.trustAsHtml(text);
     };
@@ -434,6 +453,7 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce) {
         reader.readAsText(file);
         reader.onload = function () {
             $scope.$apply(function () {
+                $scope.filename = file.name;
                 $scope.messages = [];
                 $scope.translated = [];
                 var yamlStr = reader.result;

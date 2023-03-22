@@ -18,14 +18,17 @@
                     <a class="navbar-brand" href="index.html">OMORI YAML Translation Tool</a>
                 </div>
                 <ul class="nav navbar-nav kit-commands">
+                    <li><button class="btn" ng-click="gitPush()">Push</button></li>
                     <li><button class="btn" ng-click="saveYaml()">Save</button></li>
                     <li><button class="btn" ng-click="loadYaml()">Load</button></li>
-                    <li><input class="btn" type="file" id="load-file" accept=".yaml,.yml" /></li>
+                    <li><button class="btn" ng-click="fileInput()"><input type="file" id="load-file" accept=".yaml,.yml" style="display: none;">Choose a file</button></li>
+                    <li><span style="font-family: 'OMORI_GAME2'; font-size: 2em;" ng-show="selectedFilename">You selected the file: <span style="color:blueviolet;">{{selectedFilename}}</span></span></li>
                 </ul>
             </div>
         </nav>
         <div class="container-fluid">
             <div class="row">
+                <h2 style="color:aqua; text-align: center; font-family: 'OMORI_GAME2'; font-size: 2.7em; margin-top: -0.4em;" ng-show="filename">Editing the file : {{filename}}</h2>
                 <div class="col-md-6 og-txt">
                     <h3>Original Text</h3>
                     <div ng-repeat="message in messages" class="message-box" dir="rtl">
