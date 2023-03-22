@@ -12,10 +12,11 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http) {
     $scope.filename = "";
 
     $scope.gitPush = function () {
-        $http.post("/git-req-endpoint", {data: 'PUSH_BTN'});
+        var commitMsg = prompt("Enter your commit message.")
+        if (commitMsg) { $http.post("/git-req-endpoint", { data: `PUSH_BTN:${commitMsg}` }); } else { alert("Please enter a commit message!!") }
     }
 
-    document.getElementById("load-file").addEventListener('change', function() {
+    document.getElementById("load-file").addEventListener('change', function () {
         $scope.$apply(function () {
             $scope.selectedFilename = document.getElementById("load-file").value.split('\\').pop();
             console.log($scope.selectedFilename)

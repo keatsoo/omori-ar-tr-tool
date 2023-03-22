@@ -15,8 +15,12 @@ app.listen(3000, () => {
 app.post("/git-req-endpoint", function (req, res) {
   var data = req.body.data;
 
-  if (data.toUpperCase() == "PUSH_BTN") {
-    exec("git add . && git commit -m 'ohhhhhh' && git push", (error, stdout, stderr) => {
+  if (data.toUpperCase().startsWith("PUSH_BTN")) {
+    var commitMsg = data.substring(data.indexOf(":")+1);
+    if (commitMsg == "") {
+      commitMsg = "COMMIT FROM THE TRANSLATOR";
+    }
+    exec(`git add . && git commit -m "${commitMsg}" && git push`, (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`);
         return;
