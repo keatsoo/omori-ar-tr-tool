@@ -10,22 +10,96 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http) {
     $scope.translated = [];
     $scope.selectedFilename = "";
     $scope.filename = "";
+    $scope.promptOpen = false;
+    $scope.promptText = "";
+    $scope.promptTypeOK = false;
+    $scope.promptTypeInput = false;
 
-    $scope.gitPush = function () {
-        var commitMsg = prompt("Enter your commit message.")
-        if (commitMsg) { $http.post("/git-req-endpoint", { data: `PUSH_BTN:${commitMsg}` }); } else { alert("Please enter a commit message!!") }
+    $scope.promptValidated = false;
+    $scope.promptYes = false;
+
+    $scope._openPrompt = async function (text, typeOK=true, typeInput=false) {
+        $scope.promptText = text;
+        $scope.promptTypeOK = typeOK;
+        $scope.promptTypeInput = typeInput;
+        
+        $scope.promptOpen = true;
+        $scope.promptValidated = false;
+        $scope.promptYes = false;
+        console.log('prompt opened!')
+        
+        await new Promise(resolve => {
+            const intervalId = setInterval(() => {
+              if ($scope.promptValidated) {
+                console.log($scope.promptValidated)
+                clearInterval(intervalId);
+                resolve();
+              }
+            }, 500);
+        });
+
+        
+        console.log('got a response!')
+
+        if ($scope.promptTypeInput && $scope.promptYes) {
+            return document.getElementById.value;
+        }
+
+        $scope.promptOpen = false;
+        $scope.promptValidated = false;
+
+        console.log("closing prompt")
+
+        return $scope.promptYes;
+    }
+
+    $scope.setPromptYes = async function (value) {
+        console.log('pressed button!');
+        $scope.promptValidated = true;
+        $scope.promptYes = value;
+    }
+
+    $scope.gitPush = async function () {
+        var confirmation = await $scope._openPrompt("Are you sure you want to stage, commit & push?", false)
+        console.log("confirmation:", confirmation)
+        if (confirmation) {
+            var commitMsg = await $scope._openPrompt("Enter your commit message.", false, true)
+            if (commitMsg && confirmation) {
+                $http.post("http://localhost:3000/git-req-endpoint", { data: `PUSH_BTN:${commitMsg}` });
+            } else {
+                alert("Please enter a commit message!!")
+            }
+        }
+    }
+
+    $scope.gitCommit = function () {
+        var confirmation = confirm("Are you sure you want to stage & commit?")
+        if (confirmation) {
+            var commitMsg = prompt("Enter your commit message.")
+            if (commitMsg && confirmation) {
+                $http.post("http://localhost:3000/git-req-endpoint", { data: `COMM_BTN:${commitMsg}` });
+            } else {
+                alert("Please enter a commit message!!")
+            }
+        }
+    }
+
+    $scope.gitPull = function () {
+        var confirmation = confirm("Are you sure you want to pull?")
+        if (confirmation) {
+            $http.post("http://localhost:3000/git-req-endpoint", { data: `PULL_BTN` });
+        }
     }
 
     $scope.trWithGoogle = function (message) {
         var text = message.text;
-        
-        
+
         if (text) {
-            $http.post("/git-req-endpoint", {data : `GGLE_TRL:${text}`}).then(res => {
-                console.log(res)
+
+            $http.post("http://localhost:3000/git-req-endpoint", { data: `GGLE_TRL:${text}` }).then(res => {
                 for (var trd_msg of $scope.translated) {
                     if (message.key_name == trd_msg.key_name) {
-                        trd_msg.text = res.data.data;
+                        trd_msg.text = res.data;
                     }
                 }
             })
@@ -473,6 +547,7 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http) {
                 $scope.filename = file.name;
                 $scope.messages = [];
                 $scope.translated = [];
+                $scope.selectedFilename = "";
                 var yamlStr = reader.result;
                 var obj = jsyaml.load(yamlStr);
                 for (var key in obj) {
@@ -516,13 +591,13 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http) {
 
             if ($scope.translated[i].faceset) { obj[$scope.translated[i].key_name].faceset = $scope.translated[i].faceset }
             if ($scope.translated[i].faceindex) { obj[$scope.translated[i].key_name].faceindex = $scope.translated[i].faceindex }
-            if ($scope.translated[i].text) { obj[$scope.translated[i].key_name].text = $scope.translated[i].text }
+            if ($scope.translated[i].text) { obj[$scope.translated[i].key_name].text = $scope.translated[i].text.replace('<br> ', "<br>") }
 
         }
         var yamlStr = jsyaml.dump(obj);
         var blob = new Blob([yamlStr], { type: 'text/yaml' });
         var a = document.createElement('a');
-        a.download = 'translations.yaml';
+        a.download = $scope.filename;
         a.href = URL.createObjectURL(blob);
         a.click();
     };

@@ -107,6 +107,21 @@ button.btn {
     color: white;
     font-family: 'OMORI_GAME2';
     font-size: 1.7em;
+    transition: all 0.2s ease-in-out;
+}
+
+button.btn:hover {
+    background-color: white;
+    color: #555;
+    font-family: 'OMORI_GAME2';
+    font-size: 1.7em;
+}
+
+button.btn:focus {
+    background-color: white;
+    color: #555;
+    font-family: 'OMORI_GAME2';
+    font-size: 1.7em;
 }
 
 .og-txt {
@@ -142,4 +157,298 @@ h3 {
     font-family: 'OMORI_GAME2';
     font-size: 3em;
     transform: translate(0px, -5px);
+}
+
+a.dropdown-item {
+    text-align: center;
+    display: block;
+    background-color: #777;
+    color: white;
+    font-family: 'OMORI_GAME2';
+    font-size: 1.7em;
+
+    padding: 0.5em;
+
+    border-radius: 3%;
+
+    transition: all 0.2s ease-in-out;
+}
+
+a.dropdown-item:hover {
+    text-decoration: none;
+
+    background-color: #222;
+    color: #777;
+    cursor: pointer;
+}
+
+div.dropdown-menu {
+    width: max-content;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    background-color: #777;
+    row-gap: 0.5em;
+}
+
+
+/* QUAKE ANIMATION */
+
+@keyframes quake_1 {
+    0% {
+        transform: translate(0px);
+    }
+
+    25% {
+        transform: translate(5px, -4px);
+    }
+
+    50% {
+        transform: translate(-5px, 6px);
+    }
+
+    75% {
+        transform: translate(-5px, -6px);
+    }
+
+    100% {
+        transform: translate(0px);
+    }
+}
+
+@keyframes quake_counter {
+    0% {
+        transform: translate(0px);
+    }
+
+    25% {
+        transform: translate(-5px, 4px);
+    }
+
+    50% {
+        transform: translate(5px, -6px);
+    }
+
+    75% {
+        transform: translate(5px, 6px);
+    }
+
+    100% {
+        transform: translate(0px);
+    }
+}
+
+.quake0 {
+    display: inline-block;
+    animation-name: quake_counter;
+    animation-duration: 250ms;
+    animation-iteration-count: infinite;
+}
+
+.quake1,
+.quake2 {
+    display: inline-block;
+    animation-name: quake_1;
+    animation-duration: 250ms;
+    animation-iteration-count: infinite;
+}
+
+/* SINV ANIMATION */
+
+@keyframes sinv1 {
+
+    0% {
+        transform: translate(0px, 5px);
+    }
+
+    100% {
+        transform: translate(0px, -5px);
+    }
+}
+
+@keyframes sinv_counter {
+
+    100% {
+        transform: translate(0px, 5px);
+    }
+
+    0% {
+        transform: translate(0px, -5px);
+    }
+}
+
+.sinv0 {
+    display: inline-block;
+    animation-name: sinv1;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+.sinv1,
+.sinv2 {
+    display: inline-block;
+    animation-name: sinv_counter;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+/* SINH ANIMATION */
+
+@keyframes sinh {
+
+    0% {
+        transform: translate(5px, 5px);
+    }
+
+    100% {
+        transform: translate(-5px, 0px);
+    }
+}
+
+@keyframes sinh_counter {
+
+    100% {
+        transform: translate(5px, 5px);
+    }
+
+    0% {
+        transform: translate(-5px, 0px);
+    }
+}
+
+.sinh0 {
+    display: inline-block;
+    animation-name: sinh_counter;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+.sinh1,
+.sinh2 {
+    display: inline-block;
+    animation-name: sinh;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+/* RAINBOW */
+
+@keyframes rainbow {
+    0% {
+        color: #ff0000;
+    }
+
+    20% {
+        color: #bbbb00;
+    }
+
+    40% {
+        color: #00dd00;
+    }
+
+    60% {
+        color: #00bbbb;
+    }
+
+    80% {
+        color: #0000ff;
+    }
+
+    100% {
+        color: #f0000f;
+    }
+}
+
+.rainbow1 {
+    display: inline-block;
+    animation-name: rainbow;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+.rainbow1 {
+    display: inline-block;
+    color: #fff;
+}
+
+
+#prompt-screen {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+
+    background-color: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#prompt-window {
+    position: relative;
+    width: 50%;
+    height: fit fit-content;
+
+    background: white;
+    border-radius: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#111;
+
+    padding-top: 4em;
+    padding-bottom: 5em;
+    padding-right: 2em;
+    padding-left: 2em;
+
+    transition: all 1s ease-in-out;
+}
+
+#prompt-txt {
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    margin: 0.5em;
+    padding: 0.5em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    text-align: center;
+    border: 1px black solid;
+    width: fit-content;
+    border-radius: 0.5em;
+    top: 0%;
+    right: 0%;
+    font-family: 'OMORI_GAME2';
+    font-size: 1.7em;
+    background-color: white;
+    transition: all 0.1s cubic-bezier(0.5, 1, 0.5, 1);
+}
+
+.close-btn:hover {
+    border: 1px rgb(255, 255, 255) solid;
+    background-color: rgb(114, 114, 114);
+    cursor: pointer;
+}
+
+
+#prompt-choices {
+    position: absolute;
+
+    bottom: 0%;
+    right: 0%;
+
+    margin: 0.5em;
 }
