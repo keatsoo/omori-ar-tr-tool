@@ -3,7 +3,7 @@ var app = angular.module('yaml_OMORI_translator', ['ngSanitize']);
 
 
 // Define the controller for the app
-app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http) {
+app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $timeout) {
 
     // Initialize the original messages array
     $scope.messages = [];
@@ -14,6 +14,7 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http) {
     $scope.promptText = "";
     $scope.promptTypeOK = false;
     $scope.promptTypeInput = false;
+    $scope.promptInputText = "";
 
     $scope.promptValidated = false;
     $scope.promptYes = false;
@@ -23,15 +24,20 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http) {
         $scope.promptTypeOK = typeOK;
         $scope.promptTypeInput = typeInput;
         
+        $timeout(()=>{
+            
         $scope.promptOpen = true;
         $scope.promptValidated = false;
         $scope.promptYes = false;
-        console.log('prompt opened!')
+
+        }, 20)
+
+        //console.log('prompt opened!')
         
         await new Promise(resolve => {
             const intervalId = setInterval(() => {
               if ($scope.promptValidated) {
-                console.log($scope.promptValidated)
+                //console.log($scope.promptValidated)
                 clearInterval(intervalId);
                 resolve();
               }
@@ -39,53 +45,59 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http) {
         });
 
         
-        console.log('got a response!')
+        $timeout(()=>{
+            $scope.promptOpen = false;
+            $scope.promptValidated = false;
+        }, 20)
+        
+        //console.log('got a response!')
 
         if ($scope.promptTypeInput && $scope.promptYes) {
-            return document.getElementById.value;
+            return $scope.promptInputText;
         }
 
-        $scope.promptOpen = false;
-        $scope.promptValidated = false;
 
-        console.log("closing prompt")
+        //console.log("closing prompt")
 
         return $scope.promptYes;
     }
 
     $scope.setPromptYes = async function (value) {
-        console.log('pressed button!');
+        //console.log('pressed button!');
         $scope.promptValidated = true;
         $scope.promptYes = value;
     }
 
     $scope.gitPush = async function () {
-        var confirmation = await $scope._openPrompt("Are you sure you want to stage, commit & push?", false)
-        console.log("confirmation:", confirmation)
+        var confirmation = await $scope._openPrompt("Are you sure you want to stage, commit & push?", false);
+        /* console.log("prmpt:", $scope.promptOpen)
+        setTimeout(()=>{}, 600) */
+        //console.log("confirmation:", confirmation)
+        if (confirmation) {
+            var commitMsg = await $scope._openPrompt("Enter your commit message :", false, true)
+            console.log(commitMsg)
+            if (commitMsg) {
+                $http.post("http://localhost:3000/git-req-endpoint", { data: `PUSH_BTN:${commitMsg}` });
+            } else {
+                $scope._openPrompt("Please enter a commit message!!")
+            }
+        }
+    }
+
+    $scope.gitCommit = async function () {
+        var confirmation = await $scope._openPrompt("Are you sure you want to stage & commit?", false)
         if (confirmation) {
             var commitMsg = await $scope._openPrompt("Enter your commit message.", false, true)
             if (commitMsg && confirmation) {
-                $http.post("http://localhost:3000/git-req-endpoint", { data: `PUSH_BTN:${commitMsg}` });
-            } else {
-                alert("Please enter a commit message!!")
-            }
-        }
-    }
-
-    $scope.gitCommit = function () {
-        var confirmation = confirm("Are you sure you want to stage & commit?")
-        if (confirmation) {
-            var commitMsg = prompt("Enter your commit message.")
-            if (commitMsg && confirmation) {
                 $http.post("http://localhost:3000/git-req-endpoint", { data: `COMM_BTN:${commitMsg}` });
             } else {
-                alert("Please enter a commit message!!")
+                $scope._openPrompt("Please enter a commit message!!")
             }
         }
     }
 
-    $scope.gitPull = function () {
-        var confirmation = confirm("Are you sure you want to pull?")
+    $scope.gitPull = async function () {
+        var confirmation = await $scope._openPrompt("Are you sure you want to pull?", false)
         if (confirmation) {
             $http.post("http://localhost:3000/git-req-endpoint", { data: `PULL_BTN` });
         }

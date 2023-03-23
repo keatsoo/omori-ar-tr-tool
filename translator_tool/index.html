@@ -111,7 +111,7 @@
             <div id="prompt-window">
                 <div class="close-btn">X</div>
                 <div id="prompt-txt">{{promptText}}</div><br>
-                <input type="text" id="prompt-input" ng-show="promptTypeInput">
+                <input type="text" id="prompt-input" ng-show="promptTypeInput" ng-model="promptInputText">
                 <div id="prompt-choices">
                     <div ng-show="!promptTypeOK">
                         <button class="btn" ng-click="setPromptYes(true)">Confirm</button>
