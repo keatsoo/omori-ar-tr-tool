@@ -26,6 +26,7 @@
     "depd": "^2.0.0",
     "destroy": "^1.2.0",
     "ee-first": "^1.1.1",
+    "electron-squirrel-startup": "^1.0.0",
     "encodeurl": "^1.0.2",
     "escape-html": "^1.0.3",
     "esm": "^3.2.25",
@@ -100,7 +101,9 @@
     "yallist": "^2.1.2"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "repository": {
     "type": "git",
@@ -110,6 +113,11 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
     "electron": "^23.1.4"
   }
 }

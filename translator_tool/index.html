@@ -60,16 +60,17 @@
                     <h3>Original Text</h3>
                     <div ng-repeat="message in messages" class="message-box" dir="rtl">
                         <div style="width:100%; display: flex; justify-content: space-between;">
+                            <div ng-show="getActorName(message.text)" class="name-box">{{getActorName(message.text)}}
+                            </div>
+                            <button style="height:fit-content;" class="btn" ng-click="trWithGoogle(message)">Translate
+                                with Google Translate API</button>
+                            
                             <div style="width:fit-content; display: flex; flex-direction: column; gap: 0%;">
                                 <div
                                     style="font-family: 'OMORI_GAME2'; font-size: 2em; text-shadow: 2px 2px 0px #000000;">
                                     {{message.key_name}}</div><br>
                                 <div class="message-box-face"
                                     ng-bind-html="trustAsHTML(getFaceImage(message.faceset, message.faceindex))"></div>
-                            </div>
-                            <button style="height:fit-content;" class="btn" ng-click="trWithGoogle(message)">Translate
-                                with Google Translate API</button>
-                            <div ng-show="getActorName(message.text)" class="name-box">{{getActorName(message.text)}}
                             </div>
                         </div>
                         <div class="message-box-content">
@@ -84,6 +85,8 @@
                     <h3>Translated Text</h3>
                     <div ng-repeat="tr_message in translated" class="message-box" dir="rtl">
                         <div style="width:100%; display: flex; justify-content: space-between;">
+                            <div ng-show="getActorName(tr_message.text)" class="name-box">
+                                {{getActorName(tr_message.text)}}</div>
                             <div style="width:fit-content; display: flex; flex-direction: column;">
                                 <div
                                     style="font-family: 'OMORI_GAME2'; font-size: 2em; text-shadow: 2px 2px 0px #000000;">
@@ -92,8 +95,6 @@
                                     ng-bind-html="trustAsHTML(getFaceImage(tr_message.faceset, tr_message.faceindex))">
                                 </div>
                             </div>
-                            <div ng-show="getActorName(tr_message.text)" class="name-box">
-                                {{getActorName(tr_message.text)}}</div>
                         </div>
                         <div class="message-box-content">
                             <div class="message-text" ng-bind-html="trustAsHTML(formatOMORIText(tr_message.text))">

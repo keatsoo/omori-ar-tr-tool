@@ -5,6 +5,7 @@ const child_process = require('child_process');
 const { app, BrowserWindow } = require('electron');
 const bodyParser = require('body-parser');
 const { translate } = require('@vitalets/google-translate-api');
+const fs = require('fs')
 
 
 const myApp = express();
@@ -95,6 +96,7 @@ const createWindow = () => {
 
   win.loadFile('translator_tool/index.html');
 };
+
 
 app.whenReady().then(() => {
   createWindow();
