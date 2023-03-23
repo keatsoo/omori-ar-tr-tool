@@ -29,13 +29,16 @@ myApp.post("/git-req-endpoint", function (req, res) {
     child_process.exec(`git add . && git commit -m "${commitMsg}" && git push`, (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`);
+        res.send(`ERROR:::${error.message}`);
         return;
       }
       if (stderr) {
         console.log(`stderr: ${stderr}`);
+        res.send(`stderr: ${stderr}`);
         return;
       }
       console.log(`stdout: ${stdout}`);
+      res.send(`stdout: ${stdout}`)
     });
   }
 
