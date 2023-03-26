@@ -9,8 +9,6 @@ const fs = require('fs')
    
 
 const myApp = express();
-// Serve static files from the public directory
-myApp.use(express.static('translator_tool'));
 myApp.use(bodyParser.json())
 
 // Start the server
@@ -18,7 +16,7 @@ myApp.listen(47709, () => {
   console.log('Server listening on port 47709');
 });
 
-child_process.exec(`cd ..`, (error, stdout, stderr) => {
+child_process.exec(`cd ../..`, (error, stdout, stderr) => {
   if (error) {
     console.log(`error: ${error.message}`);
     return;
