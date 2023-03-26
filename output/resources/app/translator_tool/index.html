@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OMORI YAML Translation Tool</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+
+<body class="kit-body" ng-app="yaml_OMORI_translator" ng-controller="yaml_OMORI_translator_ctrl">
+    <div class="overriding">
+
+        <nav class="navbar navbar-default ">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">OMORI YAML Translation Tool</a>
+                </div>
+                <ul class="nav navbar-nav kit-commands">
+                    <!-- <li><button class="btn" ng-click="gitPush()">Push</button></li> -->
+                    <!-- GIT COMMANDS -->
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Git Commands ▾
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" ng-click="gitPush()">Stage, Commit & Push</a>
+                            <a class="dropdown-item" ng-click="gitPull()">Pull</a>
+                            <a class="dropdown-item" ng-click="gitCommit()">Stage & Commit</a>
+                        </div>
+                    </div>
+
+                    <li><button class="btn" ng-click="saveYaml()">Save</button></li>
+                    <li><button class="btn" ng-click="loadYaml()">Load</button></li>
+                    <li><button class="btn" ng-click="fileInput()"><input type="file" id="load-file" accept=".yaml,.yml"
+                                style="display: none;">Choose a file</button></li>
+                    <li><span style="font-family: 'OMORI_GAME2';
+                                    font-size: 2em;
+                                    position: absolute;
+                                    z-index: 50; 
+                                    text-align: center; 
+                                    width: fit-content; 
+                                    background-color: #00aa85;
+                                    border: #005a47 2px solid;
+                                    padding: 1rem;
+                                    border-radius: 10%;
+                                    color: white;
+                                    transform: translate(-5em,1em);
+                                    max-width: 155px;" ng-show="selectedFilename">You selected the file: <span
+                                style="color:blueviolet;">{{selectedFilename}}</span></span></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <h2 style="color:aqua; text-align: center; font-family: 'OMORI_GAME2'; font-size: 2.7em; margin-top: -0.4em;"
+                    ng-show="filename">Editing the file : {{filename}}</h2>
+                <div class="col-md-6 og-txt">
+                    <h3>Original Text</h3>
+                    <div ng-repeat="message in messages" class="message-box" dir="rtl">
+                        <div style="width:100%; display: flex; justify-content: space-between;">
+                            <div ng-show="getActorName(message.text)" class="name-box">{{getActorName(message.text)}}
+                            </div>
+                            <button style="height:fit-content;" class="btn" ng-click="trWithGoogle(message)">Translate
+                                with Google Translate API</button>
+                            
+                            <div style="width:fit-content; display: flex; flex-direction: column; gap: 0%;">
+                                <div
+                                    style="font-family: 'OMORI_GAME2'; font-size: 2em; text-shadow: 2px 2px 0px #000000;">
+                                    {{message.key_name}}</div><br>
+                                <div class="message-box-face"
+                                    ng-bind-html="trustAsHTML(getFaceImage(message.faceset, message.faceindex))"></div>
+                            </div>
+                        </div>
+                        <div class="message-box-content">
+                            <div class="message-text" ng-bind-html="trustAsHTML(formatOMORIText(message.text))"></div>
+                        </div>
+                        <div class="message-edit-box">
+                            <textarea class="form-control message-edit-box" disabled>{{message.text}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 tr-txt">
+                    <h3>Translated Text</h3>
+                    <div ng-repeat="tr_message in translated" class="message-box" dir="rtl">
+                        <div style="width:100%; display: flex; justify-content: space-between;">
+                            <div ng-show="getActorName(tr_message.text)" class="name-box">
+                                {{getActorName(tr_message.text)}}</div>
+                            <div style="width:fit-content; display: flex; flex-direction: column;">
+                                <div
+                                    style="font-family: 'OMORI_GAME2'; font-size: 2em; text-shadow: 2px 2px 0px #000000;">
+                                    {{tr_message.key_name}}</div><br>
+                                <div class="message-box-face"
+                                    ng-bind-html="trustAsHTML(getFaceImage(tr_message.faceset, tr_message.faceindex))">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-box-content">
+                            <div class="message-text" ng-bind-html="trustAsHTML(formatOMORIText(tr_message.text))">
+                            </div>
+                        </div>
+                        <div class="message-edit-box">
+                            <textarea class="form-control message-edit-box" ng-model="tr_message.text"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="prompt-screen" ng-show="promptOpen">
+            <div id="prompt-window">
+                <div class="close-btn">X</div>
+                <div id="prompt-txt">{{promptText}}</div><br>
+                <input type="text" id="prompt-input" ng-show="promptTypeInput" ng-model="promptInputText">
+                <div id="prompt-choices">
+                    <div ng-show="!promptTypeOK">
+                        <button class="btn" ng-click="setPromptYes(true)">Confirm</button>
+                        <button class="btn" ng-click="setPromptYes(false)">Cancel</button>
+                    </div>
+                    <div ng-show="promptTypeOK">
+                        <button class="btn" ng-click="setPromptYes(false)">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="http://code.angularjs.org/1.6.9/angular-sanitize.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.min.js"></script>
+        <script src="app.js"></script>
+    </div>
+</body>
+
+</html>
