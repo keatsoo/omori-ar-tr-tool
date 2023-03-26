@@ -14,11 +14,25 @@ myApp.use(express.static('translator_tool'));
 myApp.use(bodyParser.json())
 
 // Start the server
-myApp.listen(3000, () => {
-  console.log('Server listening on port 3000');
+myApp.listen(47709, () => {
+  console.log('Server listening on port 47709');
 });
 
+child_process.exec(`cd ..`, (error, stdout, stderr) => {
+  if (error) {
+    console.log(`error: ${error.message}`);
+    return;
+  }
+  if (stderr) {
+    console.log(`stderr: ${stderr}`);
+    return;
+  }
+  console.log(`stdout: ${stdout}`);
+}); 
+
 myApp.post("/git-req-endpoint", function (req, res) {
+  
+
   var data = req.body.data;
 
   if (data.toUpperCase().startsWith("PUSH_BTN")) {

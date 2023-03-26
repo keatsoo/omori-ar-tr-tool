@@ -75,9 +75,9 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
         //console.log("confirmation:", confirmation)
         if (confirmation) {
             var commitMsg = await $scope._openPrompt("Enter your commit message :", false, true)
-            console.log(commitMsg)
+            //console.log(commitMsg)
             if (commitMsg) {
-                $http.post("http://localhost:3000/git-req-endpoint", { data: `PUSH_BTN:${commitMsg}` });
+                $http.post("http://localhost:47709/git-req-endpoint", { data: `PUSH_BTN:${commitMsg}` });
             } else {
                 $scope._openPrompt("Please enter a commit message!!")
             }
@@ -89,7 +89,9 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
         if (confirmation) {
             var commitMsg = await $scope._openPrompt("Enter your commit message.", false, true)
             if (commitMsg && confirmation) {
-                $http.post("http://localhost:3000/git-req-endpoint", { data: `COMM_BTN:${commitMsg}` });
+                $http.post("http://localhost:47709/git-req-endpoint", { data: `COMM_BTN:${commitMsg}` }).then(res => {
+                    console.log(res.data)
+                });
             } else {
                 $scope._openPrompt("Please enter a commit message!!")
             }
@@ -99,7 +101,7 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
     $scope.gitPull = async function () {
         var confirmation = await $scope._openPrompt("Are you sure you want to pull?", false)
         if (confirmation) {
-            $http.post("http://localhost:3000/git-req-endpoint", { data: `PULL_BTN` });
+            $http.post("http://localhost:47709/git-req-endpoint", { data: `PULL_BTN` });
         }
     }
 
@@ -108,7 +110,7 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
 
         if (text) {
 
-            $http.post("http://localhost:3000/git-req-endpoint", { data: `GGLE_TRL:${text}` }).then(res => {
+            $http.post("http://localhost:47709/git-req-endpoint", { data: `GGLE_TRL:${text}` }).then(res => {
                 for (var trd_msg of $scope.translated) {
                     if (message.key_name == trd_msg.key_name) {
                         trd_msg.text = res.data;

@@ -103,11 +103,47 @@
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "makeSing": "electron-forge make --single"
   },
   "repository": {
     "type": "git",
-    "url": "#"
+    "url": "https://github.com/keatsoo/omori-ar-tr-tool"
+  },
+  "build": {
+    "productName": "OMORI YAML Translator",
+    "appId": "me.kitsou.yamltranslator",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/**/*",
+      "!build/**/*",
+      "!src/**/*",
+      "!*.js.map",
+      "!out"
+    ],
+    "extraFiles": [
+      "translator_tool/**"
+    ],
+    "mac": {
+      "category": "me.kitsou.utility.yamltranslator"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "AppImage",
+        "portable"
+      ]
+    }
   },
   "author": "kitsou",
   "license": "ISC",
@@ -118,6 +154,9 @@
     "@electron-forge/maker-rpm": "^6.0.5",
     "@electron-forge/maker-squirrel": "^6.0.5",
     "@electron-forge/maker-zip": "^6.0.5",
-    "electron": "^23.1.4"
+    "electron": "^23.1.4",
+    "electron-builder": "^23.6.0",
+    "electron-prebuilt-compile": "8.2.0",
+    "esm": "^3.2.25"
   }
 }
