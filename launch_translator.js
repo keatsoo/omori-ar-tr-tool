@@ -16,17 +16,8 @@ myApp.listen(47709, () => {
   console.log('Server listening on port 47709');
 });
 
-child_process.exec(`cd ../..`, (error, stdout, stderr) => {
-  if (error) {
-    console.log(`error: ${error.message}`);
-    return;
-  }
-  if (stderr) {
-    console.log(`stderr: ${stderr}`);
-    return;
-  }
-  console.log(`stdout: ${stdout}`);
-}); 
+child_process.exec(`cd ${__dirname}`, (error, stdout, stderr) => {});
+child_process.exec(`cd ..`, (error, stdout, stderr) => {}); 
 
 myApp.post("/git-req-endpoint", function (req, res) {
   

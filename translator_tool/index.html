@@ -49,6 +49,7 @@
                                     transform: translate(-5em,1em);
                                     max-width: 155px;" ng-show="selectedFilename">You selected the file: <span
                                 style="color:blueviolet;">{{selectedFilename}}</span></span></li>
+                    <li><button class="btn" ng-click="changeTxtDir()">Toggle between RTL and LTR</button></li>
                 </ul>
             </div>
         </nav>
@@ -58,13 +59,13 @@
                     ng-show="filename">Editing the file : {{filename}}</h2>
                 <div class="col-md-6 og-txt">
                     <h3>Original Text</h3>
-                    <div ng-repeat="message in messages" class="message-box" dir="rtl">
+                    <div ng-repeat="message in messages" class="message-box" dir="{{textDir}}">
                         <div style="width:100%; display: flex; justify-content: space-between;">
                             <div ng-show="getActorName(message.text)" class="name-box">{{getActorName(message.text)}}
                             </div>
                             <button style="height:fit-content;" class="btn" ng-click="trWithGoogle(message)">Translate
                                 with Google Translate API</button>
-                            
+
                             <div style="width:fit-content; display: flex; flex-direction: column; gap: 0%;">
                                 <div
                                     style="font-family: 'OMORI_GAME2'; font-size: 2em; text-shadow: 2px 2px 0px #000000;">
@@ -83,7 +84,7 @@
                 </div>
                 <div class="col-md-6 tr-txt">
                     <h3>Translated Text</h3>
-                    <div ng-repeat="tr_message in translated" class="message-box" dir="rtl">
+                    <div ng-repeat="tr_message in translated" class="message-box" dir="{{textDir}}">
                         <div style="width:100%; display: flex; justify-content: space-between;">
                             <div ng-show="getActorName(tr_message.text)" class="name-box">
                                 {{getActorName(tr_message.text)}}</div>

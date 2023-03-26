@@ -19,6 +19,16 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
     $scope.promptValidated = false;
     $scope.promptYes = false;
 
+    $scope.textDir = "rtl";
+
+    $scope.changeTxtDir = function () {
+        if ($scope.textDir == "rtl") {
+            $scope.textDir = "ltr";
+        } else {
+            $scope.textDir = "rtl";
+        }
+    }
+
     $scope._openPrompt = async function (text, typeOK=true, typeInput=false) {
         $scope.promptText = text;
         $scope.promptTypeOK = typeOK;
@@ -201,7 +211,7 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
             "#1f3a55",
         ]
 
-        const n_names = [
+        var n_names = $scope.textDir == "rtl" ? [
             "",
             "أوموري",
             "أوبري",
@@ -212,6 +222,17 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
             "أوبري",
             "كيل",
             "هيرو"
+        ] : [
+            "",
+            "OMORI",
+            "AUBREY",
+            "KEL",
+            "HERO",
+            "", "", "",
+            "SUNNY",
+            "AUBREY",
+            "KEL",
+            "HERO"
         ]
 
         if (!inputText) { return ""; }
@@ -383,7 +404,7 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
     }
 
     $scope.getActorName = function (inputText) {  // COMPLETE LATER
-        const char_names = {
+        var char_names = $scope.textDir == "rtl" ? {
             "omo": "أوموري",
             "aub": "أوبري",
             "kel": "كيل",
@@ -499,6 +520,122 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
             "leclear": "",
             "who": "؟؟؟",
             "بوس": "عدوّ"
+        } : {
+            "omo": "OMORI",
+            "aub": "AUBREY",
+            "kel": "KEL",
+            "her": "HERO",
+            "bas": "BASIL",
+            "him": "",
+            "his": "",
+            "mar": "MARI",
+            "min": "",
+            "art": "",
+            "spxh": "",
+            "mai": "MAILBOX",
+            "swh": "",
+            "smm": "",
+            "jaw": "",
+            "life": "",
+            "kim": "",
+            "cha": "",
+            "ang": "",
+            "mav": "",
+            "van": "VANCE",
+            "spg": "",
+            "spd": "",
+            "spb": "",
+            "wis": "",
+            "ber": "BERLY",
+            "nos": "NOSE",
+            "bun": "BUN",
+            "lad": "MIKAL",
+            "dai": "DAISY",
+            "neb": "NEB",
+            "hap": "HEPPY",
+            "eye": "",
+            "ban": "BANGS",
+            "shaw": "SHAWN",
+            "ren": "REN",
+            "char": "SHARLEEN",
+            "wee": "",
+            "hum": "",
+            "gra": "",
+            "che": "",
+            "sna": "",
+            "swe": "",
+            "ems": "",
+            "ash": "",
+            "plu": "",
+            "due": "",
+            "cru": "",
+            "ros": "",
+            "kit": "",
+            "sca": "",
+            "tvg": "",
+            "sha": "",
+            "may": "",
+            "sle": "",
+            "spo": "",
+            "che": "",
+            "spr": "",
+            "ban": "",
+            "toa": "",
+            "bun": "",
+            "ma1": "",
+            "ma2": "",
+            "spe": "",
+            "hot": "",
+            "bud": "",
+            "tom": "",
+            "lea": "",
+            "ora": "",
+            "pro": "",
+            "str": "",
+            "top": "",
+            "po": "",
+            "lar": "",
+            "fer": "",
+            "gum": "",
+            "gib": "",
+            "cre": "",
+            "duw": "",
+            "duj": "",
+            "duc": "",
+            "pes": "",
+            "smo": "",
+            "gen": "",
+            "lue": "",
+            "pol": "",
+            "sou": "",
+            "tea": "",
+            "st1": "",
+            "st2": "",
+            "st3": "",
+            "dun": "",
+            "lau": "",
+            "squ": "",
+            "dm1": "",
+            "dm2": "",
+            "dm3": "",
+            "mm1": "",
+            "mm2": "",
+            "joc": "",
+            "sp1": "",
+            "sp2": "",
+            "sp3": "",
+            "ear": "",
+            "sbf": "",
+            "sxbf": "",
+            "cap": "",
+            "shb": "",
+            "sxhb": "",
+            "min": "",
+            "key": "",
+            "lb": "",
+            "leclear": "",
+            "who": "???",
+            "بوس": "BOSS"
         }
 
         if (!inputText) { return ""; }
