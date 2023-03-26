@@ -1,3 +1,5 @@
 node_modules
 out/
 dist/
+omori_ar_translator-win32-x64/
+output/

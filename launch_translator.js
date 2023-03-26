@@ -6,7 +6,7 @@ const { app, BrowserWindow } = require('electron');
 const bodyParser = require('body-parser');
 const { translate } = require('@vitalets/google-translate-api');
 const fs = require('fs')
-
+   
 
 const myApp = express();
 // Serve static files from the public directory
@@ -108,7 +108,7 @@ myApp.post("/git-req-endpoint", function (req, res) {
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1280,
-    height: 720,
+    height: 720
   });
 
   win.loadFile('translator_tool/index.html');
