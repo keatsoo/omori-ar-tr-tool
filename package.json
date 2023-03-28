@@ -1,6 +1,6 @@
 {
   "name": "omori_ar_translator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ARABIC Translator",
   "main": "launch_translator.js",
   "dependencies": {
