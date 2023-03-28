@@ -16,7 +16,7 @@ Features:
 5. You can edit the files at the right.[![image.png](https://i.postimg.cc/W3DKRbN4/image.png)](https://postimg.cc/47gwVGhC)
 6. You can use the "Translate with Google Translate API" button. ***BE CAREFUL: IT'S GONNA TRANSLATE TO ARABIC***.[![image.png](https://i.postimg.cc/qBDRX1YX/image.png)](https://postimg.cc/3WpY3F3d)
 7. Save using the "SAVE" button.[![image.png](https://i.postimg.cc/WpyZbp2v/image.png)](https://postimg.cc/14pXvQnC).
-8. Git commands are **UN**available using the "Git Commands" button.[![image.png](https://i.postimg.cc/N0WMvF6J/image.png)](https://postimg.cc/nsGZvHwB)
+8. Git commands are available using the "Git Commands" button.[![image.png](https://i.postimg.cc/N0WMvF6J/image.png)](https://postimg.cc/nsGZvHwB)
 
 
 ## HOW TO BUILD IT
