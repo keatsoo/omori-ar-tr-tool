@@ -65,7 +65,24 @@ myApp.post("/git-req-endpoint", function (req, res) {
     if (commitMsg == "") {
       commitMsg = "COMMIT FROM THE TRANSLATOR";
     }
-    child_process.exec(`git add . && git commit -m "${commitMsg}"`, (error, stdout, stderr) => {
+
+    const git = spawn('git add . && git commit -m "' + commitMsg, { shell: true });
+
+    git.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
+      //res.send(`stdout: ${data}`);
+    });
+    
+    git.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+      //res.send(`stderr: ${data}`);
+    });
+    
+    git.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
+
+    /* child_process.exec(`git add . && git commit -m "${commitMsg}"`, (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`);
         return;
@@ -75,11 +92,26 @@ myApp.post("/git-req-endpoint", function (req, res) {
         return;
       }
       console.log(`stdout: ${stdout}`);
-    });
+    }); */
   }
 
   if (data.toUpperCase().startsWith("PULL_BTN")) {
-    child_process.exec(`git pull`, (error, stdout, stderr) => {
+    const git = spawn('git pull', { shell: true });
+
+    git.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
+      //res.send(`stdout: ${data}`);
+    });
+    
+    git.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+      //res.send(`stderr: ${data}`);
+    });
+    
+    git.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
+    /* child_process.exec(`git pull`, (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`);
         return;
@@ -89,7 +121,7 @@ myApp.post("/git-req-endpoint", function (req, res) {
         return;
       }
       console.log(`stdout: ${stdout}`);
-    });
+    }); */
   }
 
   if (data.toUpperCase().startsWith("GGLE_TRL")) {
