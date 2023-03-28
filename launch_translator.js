@@ -27,7 +27,7 @@ myApp.post("/git-req-endpoint", function (req, res) {
       commitMsg = "COMMIT FROM THE TRANSLATOR";
     }
     
-    const git = spawn('git add . && git commit -m "' + commitMsg + '" && git push', { shell: true });
+    const git = spawn('git add .. && git commit -m "' + commitMsg + '" && git push', { shell: true });
 
     git.stdout.on('data', (data) => {
       console.log(`stdout: ${data}`);
@@ -66,7 +66,7 @@ myApp.post("/git-req-endpoint", function (req, res) {
       commitMsg = "COMMIT FROM THE TRANSLATOR";
     }
 
-    const git = spawn('git add . && git commit -m "' + commitMsg, { shell: true });
+    const git = spawn('git add .. && git commit -m "' + commitMsg, { shell: true });
 
     git.stdout.on('data', (data) => {
       console.log(`stdout: ${data}`);
