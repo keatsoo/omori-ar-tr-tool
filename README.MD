@@ -9,14 +9,14 @@ Features:
 
 ## HOW TO USE IT
 
-1. Open the main exe file. **WHEN LAUNCHING IT FOR THE FIRST TIME, LET IT CONNECT TO THE NETWORK, OR ELSE IT CANT USE GIT!!!**
-2. Wait for it to open properly [![image.png](https://i.postimg.cc/htkr6P7M/image.png)](https://postimg.cc/nX1BQx2Q)
-3. Click on "Choose file" and select the YAML file you want to translate from `languages/en/`.[![image.png](https://i.postimg.cc/RZpDpBMZ/image.png)](https://postimg.cc/xXH5qBJw)
-4. Open the file then click on the "Load" button.[![image.png](https://i.postimg.cc/zXGmxpnp/image.png)](https://postimg.cc/w3ZbvX4s)
-5. You can edit the files at the right.[![image.png](https://i.postimg.cc/W3DKRbN4/image.png)](https://postimg.cc/47gwVGhC)
-6. You can use the "Translate with Google Translate API" button. ***BE CAREFUL: IT'S GONNA TRANSLATE TO ARABIC***.[![image.png](https://i.postimg.cc/qBDRX1YX/image.png)](https://postimg.cc/3WpY3F3d)
-7. Save using the "SAVE" button.[![image.png](https://i.postimg.cc/WpyZbp2v/image.png)](https://postimg.cc/14pXvQnC).
-8. Git commands are available using the "Git Commands" button.[![image.png](https://i.postimg.cc/N0WMvF6J/image.png)](https://postimg.cc/nsGZvHwB)
+1. Extract the folder contained inside of the ZIP into the root of your translation project.<br>![image](https://user-images.githubusercontent.com/79017433/228302086-6de734a3-f24f-43db-8b04-07e9159ae32d.png)
+2. Inside the extracted folder, open the EXE file. **When it prompts you for access to the network, accept it or the Git Commands and the Google Translate API translations won't work.**<br>![image](https://user-images.githubusercontent.com/79017433/228302530-ee0854f5-25f9-41ae-982c-417e8204c96a.png)
+3. When the program opens, select a file to edit from `languages/en` using "Choose a file".<br>![image](https://user-images.githubusercontent.com/79017433/228303038-a3e4416b-0a37-4833-bef8-09b5ae145fb2.png)
+4. Click on load to start editing the file.<br>![image](https://user-images.githubusercontent.com/79017433/228303174-4cf2f6d0-a098-4d46-ab5f-351ae71a40cc.png)
+5. On the right will be the translated text. Edit it using the textareas under each box in Translated Text. You can use the `Translate using Google Translate API` button to use Google Translate to translate. **DISCLAIMER: IT WILL TRANSLATE TO ARABIC, IF YOU WANT IT TRANSLATED TO ANOTHER LANGUAGE, EDIT THE `launch_translator.js` FILE AND RE-BUILD THE PROGRAM.** Also, the default language for the text boxes is Arabic, so they will be inverted and the names are going to be in Arabic, so you can use the "Toggle RTL/LTR" button to change that!<br>![image](https://user-images.githubusercontent.com/79017433/228304295-267fa657-b7cc-4306-b250-3e827542e83b.png)
+6. You can use the Git Commands button to use git commands.<br>![image](https://user-images.githubusercontent.com/79017433/228304180-575bf2e5-eaf7-4dea-9a3b-cfa8db2232d2.png)
+
+
 
 
 ## HOW TO BUILD IT
