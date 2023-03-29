@@ -6,7 +6,6 @@ const { app, BrowserWindow } = require('electron');
 const bodyParser = require('body-parser');
 const { translate } = require('@vitalets/google-translate-api');
 const fs = require('fs')
-   
 
 const myApp = express();
 myApp.use(bodyParser.json())
@@ -147,6 +146,7 @@ const createWindow = () => {
     height: 720
   });
 
+  win.setMenu(null);
   win.loadFile('translator_tool/index.html');
 };
 
