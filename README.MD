@@ -4,7 +4,7 @@ Heavily inspired by [FunctionDJ's omori-translation-tool](https://github.com/Fun
 A simple YAML translator for OMORI. Still in beta, it contains lots of bugs. Feel free to open an issue or a pull request if needed.
 Features:
 - can use Google Translate to translate in your language (IS SET FOR ARABIC RN, IF YOU NEED TO CHANGE THE LANGUAGE, PLEASE REBUILD THE APP)
-- can use Git commmands (doesn't work yet idkk why)
+- can use Git commmands
 
 
 ## HOW TO USE IT
