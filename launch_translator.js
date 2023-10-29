@@ -146,7 +146,7 @@ const createWindow = () => {
     height: 720
   });
 
-  win.setMenu(null);
+  //win.setMenu(null);
   win.loadFile('translator_tool/index.html');
 };
 

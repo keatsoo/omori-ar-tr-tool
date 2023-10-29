@@ -18,6 +18,7 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
 
     $scope.promptValidated = false;
     $scope.promptYes = false;
+    $scope.yamlStr = "";
 
     $scope.textDir = "rtl";
 
@@ -29,37 +30,37 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
         }
     }
 
-    $scope._openPrompt = async function (text, typeOK=true, typeInput=false) {
+    $scope._openPrompt = async function (text, typeOK = true, typeInput = false) {
         $scope.promptText = text;
         $scope.promptTypeOK = typeOK;
         $scope.promptTypeInput = typeInput;
-        
-        $timeout(()=>{
-            
-        $scope.promptOpen = true;
-        $scope.promptValidated = false;
-        $scope.promptYes = false;
+
+        $timeout(() => {
+
+            $scope.promptOpen = true;
+            $scope.promptValidated = false;
+            $scope.promptYes = false;
 
         }, 20)
 
         //console.log('prompt opened!')
-        
+
         await new Promise(resolve => {
             const intervalId = setInterval(() => {
-              if ($scope.promptValidated) {
-                //console.log($scope.promptValidated)
-                clearInterval(intervalId);
-                resolve();
-              }
+                if ($scope.promptValidated) {
+                    //console.log($scope.promptValidated)
+                    clearInterval(intervalId);
+                    resolve();
+                }
             }, 500);
         });
 
-        
-        $timeout(()=>{
+
+        $timeout(() => {
             $scope.promptOpen = false;
             $scope.promptValidated = false;
         }, 20)
-        
+
         //console.log('got a response!')
 
         if ($scope.promptTypeInput && $scope.promptYes) {
@@ -681,8 +682,8 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
     };
 
     // Function to extract the text from the YAML string
-    function extractText(yamlStr) {
-        var obj = jsyaml.load(yamlStr);
+    function extractText(m_yamlStr) {
+        var obj = jsyaml.load(m_yamlStr);
         return obj['text'];
     }
 
@@ -699,8 +700,8 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
                 $scope.messages = [];
                 $scope.translated = [];
                 $scope.selectedFilename = "";
-                var yamlStr = reader.result;
-                var obj = jsyaml.load(yamlStr);
+                $scope.yamlStr = reader.result;
+                var obj = jsyaml.load($scope.yamlStr);
                 for (var key in obj) {
                     if (obj.hasOwnProperty(key)) {
                         $scope.messages.push({
@@ -736,17 +737,77 @@ app.controller('yaml_OMORI_translator_ctrl', function ($scope, $sce, $http, $tim
 
     // Function to save the translations as a YAML file
     $scope.saveYaml = function () {
-        var obj = {};
+        var obj = [];
         for (var i = 0; i < $scope.translated.length; i++) {
-            obj[$scope.translated[i].key_name] = {};
+            if ($scope.translated[i].text != $scope.messages[i].text) {
+                var m_obj = {}
+                m_obj[$scope.translated[i].key_name] = {};
 
-            if ($scope.translated[i].faceset) { obj[$scope.translated[i].key_name].faceset = $scope.translated[i].faceset }
-            if ($scope.translated[i].faceindex) { obj[$scope.translated[i].key_name].faceindex = $scope.translated[i].faceindex }
-            if ($scope.translated[i].text) { obj[$scope.translated[i].key_name].text = $scope.translated[i].text.replace('<br> ', "<br>") }
+                if ($scope.translated[i].faceset) { m_obj[$scope.translated[i].key_name].faceset = $scope.translated[i].faceset }
+                if ($scope.translated[i].faceindex) { m_obj[$scope.translated[i].key_name].faceindex = $scope.translated[i].faceindex }
+                if ($scope.translated[i].text) { m_obj[$scope.translated[i].key_name].text = $scope.translated[i].text.replace('<br> ', "<br>") }
+
+                obj.push(m_obj);
+            }
 
         }
-        var yamlStr = jsyaml.dump(obj);
-        var blob = new Blob([yamlStr], { type: 'text/yaml' });
+
+        var line_array = $scope.yamlStr.split('\n');
+        var space_count = 2;
+        for (var line of line_array) {
+            if (line.includes("text:")) {
+                space_count = line.search(/\S|$/);
+            }
+        }
+
+        //console.log(obj);
+        for (var object of obj) {
+
+            var key_name = "";
+            for (const key in object) {
+                key_name = key;
+            }
+            //console.log(key_name)
+
+            var objString = jsyaml.dump(object);
+            //console.log(objString);
+
+            var nameregex = new RegExp(`^${key_name}:.*`, "m");
+            var genyamlregex = /^(\s*[-]?\s*[a-zA-Z0-9_]+\s*:\s*(?:[a-zA-Z0-9_]+|".*?"|\'.*?\'|\[.*\]|\{.*\}|\s+)?\s*)+$/;
+
+            var start = -1;
+            var end = -1;
+
+            for (var i = 0; i < line_array.length; i++) {
+                if (nameregex.test(line_array[i]) || line_array[i].startsWith(key_name + ":")) {
+                    start = i;
+                    for (var j = i +1; j < line_array.length; j++) {
+                        if (line_array[j].match(/^\w+:.*$/) || line_array[j].trim().startsWith('#')) {
+                            //console.log(line_array[j], "matches w that one regex")
+                            end = j;
+                            break;
+                        }
+                        if (j === line_array.length) {
+                            end = j;
+                        }
+
+                    }
+                    break;
+                }
+            }
+
+            line_array.splice(start, end - start, ...objString.split('\n'));
+        }
+
+        line_array = line_array.map((line) => {
+            if (line.startsWith(' ')){
+                return line.replace(/^(\s*)/, ' '.repeat(space_count))
+            }
+            return line
+        })
+        var myYaml = line_array.join('\n');
+
+        var blob = new Blob([myYaml], { type: 'text/yaml' });
         var a = document.createElement('a');
         a.download = $scope.filename;
         a.href = URL.createObjectURL(blob);
