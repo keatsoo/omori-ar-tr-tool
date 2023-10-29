@@ -36,20 +36,19 @@
                     <li><button class="btn" ng-click="fileInput()"><input type="file" id="load-file" accept=".yaml,.yml"
                                 style="display: none;">Choose a file</button></li>
                     <li><span style="font-family: 'OMORI_GAME2';
-                                    font-size: 2em;
-                                    position: absolute;
-                                    z-index: 50; 
-                                    text-align: center; 
-                                    width: fit-content; 
-                                    background-color: #00aa85;
-                                    border: #005a47 2px solid;
-                                    padding: 1rem;
-                                    border-radius: 10%;
-                                    color: white;
-                                    transform: translate(-5em,1em);
-                                    max-width: 155px;" ng-show="selectedFilename">You selected the file: <span
-                                style="color:blueviolet;">{{selectedFilename}}</span></span></li>
-                    <li><button class="btn" ng-click="changeTxtDir()">Toggle between RTL and LTR</button></li>
+                        font-size: 2em;
+                        position: absolute;
+                        z-index: 50;
+                        text-align: center;
+                        width: auto;
+                        background-color: #00aa85;
+                        border: #005a47 2px solid;
+                        padding: 1rem;
+                        border-radius: 10%;
+                        color: white;
+                        transform: translate(-5em, 1em);" ng-show="selectedFilename">You selected the file: <span
+                                style="color:red;">{{selectedFilename}}</span></span></li>
+                    <li><button class="btn" ng-click="changeTxtDir()">RTL <=> LTR</button></li>
                 </ul>
             </div>
         </nav>

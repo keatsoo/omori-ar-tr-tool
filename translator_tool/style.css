@@ -69,6 +69,11 @@ body {
 .navbar {
     background-color: #222;
     color: #ccc;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding-top: 7px;
+    padding-bottom: 7px;
 }
 
 .navbar-default {
@@ -405,7 +410,7 @@ div.dropdown-menu {
     display: flex;
     align-items: center;
     justify-content: center;
-    color:#111;
+    color: #111;
 
     padding-top: 4em;
     padding-bottom: 5em;
